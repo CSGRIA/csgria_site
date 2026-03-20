@@ -1,0 +1,508 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block title %}CSGR-IA — Contact{% endblock %}
+
+{% block style %}
+<style>
+
+.contact-hero-box {
+    height: 260px;
+    background: var(--blue-500);
+}
+
+.contact-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+}
+
+.contact-hero-content {
+    padding: 32px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-hero-content h1 {
+    font-size: clamp(20px, 3.5vw, 30px);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.4px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.contact-hero-content p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.78;
+}
+
+.contact-hero-img {
+    display: none;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.contact-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.support-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 12px;
+}
+
+.support-section {
+    width: 100%;
+    max-width: 1160px;
+    margin: -60px auto 0;
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.support-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    padding: 28px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: background 0.25s;
+    position: relative;
+}
+
+.support-card:first-child {
+    border-bottom: 1px solid var(--border);
+}
+
+.support-card:hover { background: var(--soft-white); }
+
+.support-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.support-card:first-child::before { background: var(--blue-500); }
+.support-card:last-child::before  { background: var(--green-500); }
+.support-card:hover::before       { transform: scaleX(1); }
+
+.support-icon {
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+    color: var(--blue-500);
+}
+
+.support-icon svg { width: 32px; height: 32px; }
+
+.support-card p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.78;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.btn-support-blue {
+    padding: 10px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--white); background: var(--blue-500);
+    border: none; border-radius: 8px; cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: auto;
+}
+
+.btn-support-blue:hover { background: var(--blue-800); transform: translateY(-2px); }
+
+.btn-support-green {
+    padding: 10px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--green-500); background: var(--white);
+    border: 1.5px solid var(--green-500); border-radius: 8px; cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    margin-top: auto;
+}
+
+.btn-support-green:hover { background: var(--green-500); color: var(--white); transform: translateY(-2px); }
+
+.contact-spacer { height: 40px;color: var(--white); }
+
+.contact-bottom {
+    background: var(--blue-800);
+    padding: 48px 16px;
+    text-align: center;
+}
+
+.contact-bottom h2 {
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.4px;
+    margin-bottom: 10px;
+}
+
+.contact-bottom p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.72);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.75;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.chatbot-launcher {
+    position: fixed;
+    bottom: 24px; left: 20px;
+    z-index: 9999;
+}
+
+.chatbot-bubble {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 28px;
+    padding: 10px 16px 10px 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: box-shadow 0.25s, transform 0.25s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-dark);
+    user-select: none;
+}
+
+.chatbot-bubble:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.16); transform: translateY(-2px); }
+
+.chatbot-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--blue-800);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 16px;
+}
+
+.chatbot-window {
+    position: fixed;
+    bottom: 80px; left: 20px;
+    z-index: 9998;
+    width: min(320px, calc(100vw - 40px));
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.16);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transform: translateY(12px) scale(0.96);
+    opacity: 0; pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+}
+
+.chatbot-window.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+
+.chatbot-header {
+    background: var(--blue-800);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.chatbot-header-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--blue-500);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+}
+
+.chatbot-header-info strong { display: block; font-size: 13.5px; font-weight: 700; color: var(--white); }
+.chatbot-header-info span   { font-size: 11px; color: rgba(255,255,255,0.70); }
+
+.chatbot-header-close {
+    margin-left: auto; background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.70); padding: 4px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s; display: flex; align-items: center;
+}
+
+.chatbot-header-close:hover { color: var(--white); background: rgba(255,255,255,0.15); }
+
+.chatbot-messages {
+    flex: 1; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    min-height: 180px; max-height: 280px; overflow-y: auto;
+}
+
+.chat-msg {
+    max-width: 85%; padding: 10px 14px;
+    border-radius: 14px; font-size: 13px; line-height: 1.55;
+}
+
+.chat-msg.bot  { background: var(--soft-white); color: var(--text-dark); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--blue-500); color: var(--white); border-bottom-right-radius: 4px; align-self: flex-end; }
+
+.chatbot-quick-replies { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+
+.quick-reply {
+    padding: 6px 12px;
+    background: var(--blue-50); border: 1px solid var(--blue-100);
+    border-radius: 20px; font-size: 12px; font-weight: 500;
+    color: var(--blue-800); cursor: pointer; font-family: 'Poppins', sans-serif;
+    transition: background 0.2s, color 0.2s;
+}
+
+.quick-reply:hover { background: var(--blue-500); color: var(--white); border-color: var(--blue-500); }
+
+.chatbot-input-row { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--border); }
+
+.chatbot-input {
+    flex: 1; padding: 9px 14px;
+    font-family: 'Poppins', sans-serif; font-size: 13px;
+    border: 1.5px solid var(--border); border-radius: 20px;
+    outline: none; color: var(--text-dark); transition: border-color 0.2s;
+}
+
+.chatbot-input:focus { border-color: var(--blue-500); }
+
+.chatbot-send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blue-500); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s, transform 0.2s;
+}
+
+.chatbot-send:hover { background: var(--blue-800); transform: scale(1.08); }
+.chatbot-send svg { width: 16px; height: 16px; color: var(--white); }
+
+.whatsapp-fab {
+    position: fixed; bottom: 24px; right: 20px; z-index: 9999;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(37,211,102,0.40);
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.whatsapp-fab:hover { transform: scale(1.10); box-shadow: 0 10px 28px rgba(37,211,102,0.50); }
+.whatsapp-fab svg { width: 28px; height: 28px; }
+
+/* ── 580px ─────────────────────────────────────── */
+@media (min-width: 580px) {
+    .support-wrapper { padding: 0 20px; }
+    .support-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .support-card:first-child { border-bottom: none; border-right: 1px solid var(--border); }
+    .contact-bottom { padding: 48px 32px; }
+}
+
+/* ── 768px ─────────────────────────────────────── */
+@media (min-width: 768px) {
+    .contact-hero-box { height: 360px; }
+    .contact-hero { grid-template-columns: 1fr 1fr; }
+    .contact-hero-content { padding: 40px 40px; }
+    .contact-hero-img { display: block; }
+    .support-wrapper { padding: 0 32px; }
+    .support-section { margin-top: -80px; }
+    .support-grid { max-width: 960px; }
+    .contact-bottom { padding: 56px 40px; }
+}
+
+/* ── 1024px ─────────────────────────────────────── */
+@media (min-width: 1024px) {
+    .contact-hero-box { height: 400px; }
+    .contact-hero-content { padding: 48px 56px; }
+    .support-wrapper { padding: 0 40px; }
+    .support-section { margin-top: -100px; }
+    .support-grid { max-width: 1160px; }
+    .contact-bottom { padding: 64px 40px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-hero-box">
+    <section class="contact-hero">
+        <div>
+            <div class="contact-hero-content reveal">
+                <h1>Contactez-Nous</h1>
+                <p>Le Comité Scientifique de Recherche sur l'Intelligence Artificielle du Gabon est engagé dans la promotion, le développement et l'encadrement de la recherche en intelligence artificielle au service de l'innovation, de l'éducation et du développement durable.</p>
+            </div>
+        </div>
+        <div class="contact-hero-img">
+            <img src="{% static 'imgs/2148882592.jpg' %}" alt="Contact CSGR-IA"
+                 onerror="this.style.display='none';">
+        </div>
+    </section>
+</div>
+
+<div class="support-wrapper">
+    <div class="support-section">
+        <div class="support-grid">
+
+            <div class="support-card reveal">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3ABBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-phone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
+                </div>
+                <p>Contactez notre support par téléphone pour une assistance rapide et directe. Notre équipe est disponible pour répondre à vos questions et vous accompagner dans les meilleurs délais.</p>
+                <a href="tel:+24101000000" class="btn-support-blue">Contact Support</a>
+            </div>
+
+            <div class="support-card reveal">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B794F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" /><path d="M3 7l9 6l9 -6" /></svg>
+                </div>
+                <p>Contactez notre support via email pour toute demande d'information, assistance technique ou collaboration. Notre équipe vous répondra dans les plus brefs délais.</p>
+                <a href="mailto:contact@csgr-ia.ga" class="btn-support-green">Contact Support</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="contact-spacer"></div>
+
+<div class="contact-bottom reveal">
+    <h2>Contactez-nous</h2>
+    <p>Pour toute question, proposition de collaboration, demande d'information ou partenariat, n'hésitez pas à nous contacter. Notre équipe vous répondra dans les meilleurs délais.</p>
+</div>
+
+<div class="chatbot-launcher">
+    <div class="chatbot-bubble" id="chatbotToggle">
+        <div class="chatbot-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.png' %}" alt="bot" srcset=""></div>
+        CsgrAI
+    </div>
+</div>
+
+<div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+        <div class="chatbot-header-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.png' %}" alt="bot" srcset=""></div>
+        <div class="chatbot-header-info">
+            <strong>CsgrAI</strong>
+            <span>Assistant CSGR-IA · En ligne</span>
+        </div>
+        <button class="chatbot-header-close" id="chatbotClose" aria-label="Fermer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="chat-msg bot">Bonjour 👋 Je suis CsgrAI, votre assistant virtuel. Comment puis-je vous aider aujourd'hui ?</div>
+    </div>
+    <div class="chatbot-quick-replies" id="quickReplies">
+        <button class="quick-reply" data-msg="Devenir membre">Devenir membre</button>
+        <button class="quick-reply" data-msg="Nos publications">Publications</button>
+        <button class="quick-reply" data-msg="Nous contacter">Nous contacter</button>
+    </div>
+    <div class="chatbot-input-row">
+        <input type="text" class="chatbot-input" id="chatInput" placeholder="Écrivez un message…">
+        <button class="chatbot-send" id="chatSend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<a href="https://wa.me/24101000000" target="_blank" class="whatsapp-fab" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="#fff">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+</a>
+
+<script>
+(function () {
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+    }, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    const toggle = document.getElementById('chatbotToggle');
+    const win    = document.getElementById('chatbotWindow');
+    const close  = document.getElementById('chatbotClose');
+    const msgs   = document.getElementById('chatMessages');
+    const input  = document.getElementById('chatInput');
+    const send   = document.getElementById('chatSend');
+    const qr     = document.getElementById('quickReplies');
+
+    const replies = {
+        'Devenir membre'  : 'Pour devenir membre du CSGR-IA, contactez-nous à contact@csgr-ia.ga 📩',
+        'Nos publications': 'Retrouvez nos publications dans Recherche > Publications 📚',
+        'Nous contacter'  : 'Email : contact@csgr-ia.ga — Tél : +241 01 00 00 00 📞',
+        'default'         : 'Merci ! Notre équipe vous répondra très prochainement. 😊'
+    };
+
+    function addMsg(text, type) {
+        const d = document.createElement('div');
+        d.className = 'chat-msg ' + type;
+        d.textContent = text;
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function botReply(text) {
+        setTimeout(() => addMsg(replies[text] || replies['default'], 'bot'), 600);
+    }
+
+    toggle.addEventListener('click', () => win.classList.toggle('open'));
+    close.addEventListener('click',  () => win.classList.remove('open'));
+
+    qr.querySelectorAll('.quick-reply').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const msg = btn.dataset.msg;
+            addMsg(msg, 'user');
+            botReply(msg);
+            qr.style.display = 'none';
+        });
+    });
+
+    function sendMsg() {
+        const txt = input.value.trim();
+        if (!txt) return;
+        addMsg(txt, 'user');
+        botReply(txt);
+        input.value = '';
+        qr.style.display = 'none';
+    }
+
+    send.addEventListener('click', sendMsg);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+})();
+</script>
+
+{% endblock %}

@@ -337,18 +337,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <button class="nav-link js-dropdown-toggle" onclick="window.location.href='{% url 'core:apropos' %}'">
-                    À Propos
-                    <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                </button>
-                <div class="nav-dropdown">
-                    <a href="#">Notre histoire</a>
-                    <a href="#">Gouvernance</a>
-                    <a href="#">Membres</a>
-                    <a href="#">Communauté</a>
-                </div>
+                <a href="{% url 'core:apropos' %}" class="nav-link {% if url_name == 'apropos' %}active{% endif %}">
+                     À Propos
+                </a>
             </li>
             <li class="nav-item">
                 <button class="nav-link js-dropdown-toggle">
@@ -366,7 +357,7 @@
                 <a href="#" class="nav-link">Actualités</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="{% url 'core:contact' %}" class="nav-link {% if url_name == 'contact' %}active{% endif %}">Contact</a>
             </li>
         </ul>
 

@@ -10,3 +10,6 @@ def home_view(request):
 
 def apropos_page(request):
     return render(request,'core/apropos_page.html')
+
+def contact_page(request):
+    return render(request,'core/contact_page.html')
