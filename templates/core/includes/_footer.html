@@ -1,0 +1,367 @@
+{% load static %}
+{% block style %}
+<style>
+footer {
+    background: var(--blue-500);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 120, 212, 0.08);
+    top: -120px;
+    left: -80px;
+    pointer-events: none;
+}
+
+footer::after {
+    content: '';
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 192, 122, 0.07);
+    bottom: -60px;
+    right: 80px;
+    pointer-events: none;
+}
+
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px 28px;
+    position: relative;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+}
+
+.footer-brand-logo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.footer-brand-logo img {
+    height: 38px;
+    width: auto;
+}
+
+.footer-brand-logo strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.2px;
+}
+
+.footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.60);
+    max-width: 340px;
+}
+
+.footer-col h5 {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 14px;
+}
+
+.footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-col ul li a {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.18s, padding-left 0.18s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--white);
+    padding-left: 4px;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.footer-contact-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--white);
+}
+
+.footer-contact-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.contact-label {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 2px;
+}
+
+.contact-value {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.80);
+}
+
+.footer-socials-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 20px 0;
+    margin-bottom: 24px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 9px;
+}
+
+.footer-social-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: var(--white);
+    text-decoration: none;
+    transition: background 0.22s, border-color 0.22s, transform 0.22s;
+}
+
+.footer-social-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-3px);
+}
+
+.footer-social-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.footer-copyright {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.footer-copyright strong {
+    color: var(--white);
+    font-weight: 600;
+}
+
+.footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.footer-legal a {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.18s;
+}
+
+.footer-legal a:hover {
+    color: var(--white);
+}
+
+@media (min-width: 640px) {
+    .footer-inner {
+        padding: 48px 32px 32px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .footer-socials-row {
+        justify-content: flex-end;
+    }
+}
+
+@media (min-width: 1024px) {
+    .footer-inner {
+        padding: 64px 40px 36px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1.4fr;
+        gap: 56px;
+    }
+}
+</style>
+{% endblock %}
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+
+            <div>
+                <div class="footer-brand-logo">
+                    <img src="{% static 'imgs/logo.svg' %}" alt="CSGR-IA">
+                    <strong>CSGR-IA</strong>
+                </div>
+                <p class="footer-brand-desc">
+                    Le Comité Scientifique Gabonais de Recherche sur l'Intelligence Artificielle est l'institution de référence pour le développement de l'IA au Gabon.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Navigation</h5>
+                <ul>
+                    <li><a href="{% url 'core:home' %}">Accueil</a></li>
+                    <li><a href="#">À Propos</a></li>
+                    <li><a href="#">Actualités</a></li>
+                    <li><a href="#">Membres</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Ressources</h5>
+                <ul>
+                    <li><a href="#">Publications</a></li>
+                    <li><a href="#">Bibliothèque</a></li>
+                    <li><a href="#">Projets IA</a></li>
+                    <li><a href="#">Partenariats</a></li>
+                    <li><a href="#">Devenir membre</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M18.364 4.636a9 9 0 0 1 .203 12.519l-.203 .21l-4.243 4.242a3 3 0 0 1 -4.097 .135l-.144 -.135l-4.244 -4.243a9 9 0 0 1 12.728 -12.728zm-6.364 3.364a3 3 0 1 0 0 6a3 3 0 0 0 0 -6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="contact-label">Adresse</span>
+                        <span class="contact-value">Libreville, Gabon</span>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M22 7.535v9.465a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-9.465l9.445 6.297l.116 .066a1 1 0 0 0 .878 0l.116 -.066l9.445 -6.297z"/>
+                            <path d="M19 4c1.08 0 2.027 .57 2.555 1.427l-9.555 6.37l-9.555 -6.37a2.999 2.999 0 0 1 2.354 -1.42l.201 -.007h14z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">contact@csgr-ia.ga</span>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="footer-contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M9 3a1 1 0 0 1 .877 .519l.051 .11l2 5a1 1 0 0 1 -.313 1.16l-.1 .068l-1.674 1.004l.063 .103a10 10 0 0 0 3.132 3.132l.102 .062l1.005 -1.672a1 1 0 0 1 1.113 -.453l.115 .039l5 2a1 1 0 0 1 .622 .807l.007 .121v4c0 1.657 -1.343 3 -3.06 2.998c-8.579 -.521 -15.418 -7.36 -15.94 -15.998a3 3 0 0 1 2.824 -2.995l.176 -.005h4z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="contact-label">Téléphone</span>
+                        <span class="contact-value">+241 01 00 00 00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-socials-row">
+            <div class="footer-socials">
+                <a href="#" class="footer-social-btn" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="#" class="footer-social-btn" aria-label="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z"/>
+                    </svg>
+                </a>
+                <a href="#" class="footer-social-btn" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="#" class="footer-social-btn" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 <strong>CSGR-IA</strong>. Tous droits réservés.</p>
+            <div class="footer-legal">
+                <a href="#">Mentions Légales</a>
+                <a href="#">Confidentialité</a>
+                <a href="#">Accessibilité</a>
+            </div>
+        </div>
+    </div>
+</footer>
