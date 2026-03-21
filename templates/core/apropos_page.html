@@ -589,7 +589,9 @@
         <div class="timeline-wrap">
             {% if evenements %}
             {% for el in evenements %}
-            <div class="timeline-row {% if forloop.counter|divisibleby:2%}from-left{% else %}from-right{% endif %} reveal">
+            <div
+                class="timeline-row {% if forloop.counter0|divisibleby:2 %}from-right{% else %}from-left{% endif %} reveal">
+
                 <!-- MOBILE -->
                 <div class="tl-dot-wrap">
                     <div class="tl-dot"></div>
@@ -599,8 +601,9 @@
                     <div class="tl-title">{{ el.title }}</div>
                     <div class="tl-desc">{{ el.description }}</div>
                 </div>
+
                 <!-- DESKTOP -->
-                {% if forloop.counter|divisibleby:2 %}
+                {% if forloop.counter0|divisibleby:2 %}
                 <!-- DROITE -->
                 <div class="tl-left-cell"></div>
                 <div class="tl-center-cell">
@@ -623,6 +626,7 @@
                 </div>
                 <div class="tl-right-cell"></div>
                 {% endif %}
+
             </div>
             {% endfor %}
             {% else %}
