@@ -61,12 +61,15 @@
 .hero-slide-poster {
     position: relative;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 90vw;
     aspect-ratio: 3 / 4;
     height: 50vh;
     overflow: hidden;
     box-shadow: 0 24px 64px rgba(0,0,0,0.60), 0 0 0 1px rgba(255,255,255,0.08);
-    background: var(--blue-800);
+    background: var(--white);
     flex-shrink: 0;
     transition: transform 0.45s, box-shadow 0.45s;
 }
@@ -438,28 +441,30 @@
 {% endblock %}
 
 {% block content %}
-
 <section class="hero-carousel" id="heroCarousel">
     <div class="hero-track" id="heroTrack">
-
-        <div class="hero-slide active">
-            <div class="hero-slide-bg" style="background-image:url('{% static 'imgs/back_c1.svg' %}');"></div>
+        {% for slide in carousels %}
+        <div class="hero-slide {% if forloop.first %}active{% endif %}">
+            <div class="hero-slide-bg" style="background-image:url('{{ slide.bg_url }}');"></div>
+             {% if slide.has_poster %}
             <div class="hero-slide-poster">
-                <img height="100%" style="object-fit: cover;" src="{% static 'imgs/2148882592.jpg' %}" alt="Colloque IA & Transformation Digitale"
+                <img height="100%" style="object-fit:cover;" src="{{ slide.poster_url }}" alt="Colloque IA & Transformation Digitale"
                     onerror="this.parentElement.style.background='var(--blue-800)';this.style.display='none';">
             </div>
+            {% endif %}
         </div>
-
+        {% endfor %}
     </div>
-
+    {% for slide in carousels %}
     <div class="hero-dots" id="heroDots">
-        <button class="hero-dot active" data-index="0"></button>
+        <button class="hero-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></button>
     </div>
+    {% endfor %}
 </section>
 
 <div class="hero-cta-bar">
-    <a href="#" class="btn-cta-green">
-        Découvrir nos missions
+    <a href="{% url 'core:apropos'%}#mission-objectif" class="btn-cta-green">
+        Ce qui nous anime
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -479,42 +484,16 @@
 <section class="missions-wrapper">
     <div class="missions-inner">
 
-        <div class="content-row reveal">
-            <div class="content-img" style="background-image:url('{% static 'imgs/2148882592.jpg' %}');"></div>
+        {% for mission in missions %}
+        <div class="content-row {% if mission.is_reverse %}reverse{% endif %} reveal">
+            <div class="content-img" style="background-image:url('{{ mission.visuel_url }}');"></div>
             <div class="content-text">
-                <div class="row-tag">01 — Recherche</div>
-                <h3>Recherche Fondamentale</h3>
-                <p>Conduire des recherches de pointe en intelligence artificielle adaptées aux réalités africaines et aux défis locaux.</p>
+                <div class="row-tag">{{ mission.label }}</div>
+                <h3>{{ mission.title }}</h3>
+                <p>{{ mission.description }}</p>
             </div>
         </div>
-
-        <div class="content-row reverse reveal">
-            <div class="content-img" style="background-image:url('{% static 'imgs/2148882592.jpg' %}');"></div>
-            <div class="content-text">
-                <div class="row-tag">02 — Formation</div>
-                <h3>Formation & Éducation</h3>
-                <p>Former la nouvelle génération de chercheurs et développeurs en IA à travers des programmes académiques de qualité, des ateliers pratiques et des certifications reconnues.</p>
-            </div>
-        </div>
-
-        <div class="content-row reveal">
-            <div class="content-img" style="background-image:url('{% static 'imgs/2148882592.jpg' %}');"></div>
-            <div class="content-text">
-                <div class="row-tag">03 — Innovation</div>
-                <h3>Innovation Technologique</h3>
-                <p>Développer des solutions IA innovantes pour répondre aux défis socio-économiques majeurs du Gabon.</p>
-            </div>
-        </div>
-
-        <div class="content-row reverse reveal">
-            <div class="content-img" style="background-image:url('{% static 'imgs/2148882592.jpg' %}');"></div>
-            <div class="content-text">
-                <div class="row-tag">04 — Coopération</div>
-                <h3>Coopération Internationale</h3>
-                <p>Développer des collaborations stratégiques avec universités, centres de recherche et entreprises tech pour accélérer l'adoption de l'IA et partager les meilleures pratiques mondiales.</p>
-            </div>
-        </div>
-
+        {% endfor %}
     </div>
 </section>
 
@@ -546,7 +525,7 @@
         <p>Rejoignez le CSGR-IA et participez à la construction d'un écosystème scientifique innovant au Gabon.</p>
         <div class="cta-actions">
             <a href="#" class="btn-final-blue">Devenir Membre</a>
-            <a href="#" class="btn-final-white">Nous Contacter</a>
+            <a href="{% url 'core:contact' %}" class="btn-final-white">Nous Contacter</a>
         </div>
     </div>
 </section>

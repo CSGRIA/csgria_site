@@ -550,14 +550,13 @@
 
 {% block content %}
 <div class="about-page">
-
-    <!-- ── POLITIQUE QUALITÉ ──────────────────────── -->
     <div class="about-section">
-
         <div class="pq-body-row reveal">
             <div class="pq-body">
-                <div style="display: flex;align-items: center;justify-content: start;transform: translateX(-5px);gap:5px;">
-                    <img height="42px" src="{% static 'imgs/logo.svg' %}" alt="CSGR-IA" onerror="this.style.display='none'">
+                <div
+                    style="display: flex;align-items: center;justify-content: start;transform: translateX(-5px);gap:5px;">
+                    <img height="42px" src="{% static 'imgs/logo.svg' %}" alt="CSGR-IA"
+                        onerror="this.style.display='none'">
                     <div class='nav-logo-text'>
                         <strong>CSGR-IA</strong>
                         <span>Comité Scientifique de Recherche</span>
@@ -576,8 +575,8 @@
                 </p>
             </div>
             <div class="pq-img">
-                <img src="{% static 'imgs/2148882592.jpg' %}" alt="Politique qualité CSGR-IA"
-                    onerror="this.style.display='none'">
+                <img src="{% if appropos.has_hero %}{{appropos.hero_politique.url}}{% else %}{% static 'imgs/2148882592.jpg' %} {% endif %}"
+                    alt="Politique qualité CSGR-IA" onerror="this.style.display='none'">
             </div>
         </div>
 
@@ -585,139 +584,73 @@
 
     <hr class="section-divider">
 
-    <!-- ── NOTRE HISTOIRE ─────────────────────────── -->
     <div class="about-section">
-
         <h2 class="section-h2 reveal">Notre Histoire</h2>
-
         <div class="timeline-wrap">
-
-            <!-- 2019 — droite desktop / normal mobile -->
-            <div class="timeline-row from-right">
+            {% if evenements %}
+            {% for el in evenements %}
+            <div class="timeline-row {% if forloop.counter|divisibleby:2%}from-right{% else %}from-left{% endif %}">
                 <!-- MOBILE -->
                 <div class="tl-dot-wrap">
                     <div class="tl-dot"></div>
                 </div>
                 <div class="tl-content">
-                    <div class="tl-year">2019</div>
-                    <div class="tl-title">Création du groupe de réflexion</div>
-                    <div class="tl-desc">Initiative portée par des chercheurs gabonais avec le soutien du Ministère de
-                        l'Enseignement Supérieur.</div>
+                    <div class="tl-year">{{ el.annee }}</div>
+                    <div class="tl-title">{{ el.title }}</div>
+                    <div class="tl-desc">{{ el.description }}</div>
                 </div>
                 <!-- DESKTOP -->
+                {% if forloop.counter|divisibleby:2 %}
+                <!-- DROITE -->
                 <div class="tl-left-cell"></div>
                 <div class="tl-center-cell">
                     <div class="tl-dot"></div>
                 </div>
                 <div class="tl-right-cell">
-                    <div class="tl-year">2023</div>
-                    <div class="tl-title">Création du groupe de réflexion</div>
-                    <div class="tl-desc">
-                        Initiative portée par des chercheurs de l'UOB et de l'USTM pour structurer la recherche en IA.
-                    </div>
+                    <div class="tl-year">{{ el.annee }}</div>
+                    <div class="tl-title">{{ el.title }}</div>
+                    <div class="tl-desc">{{ el.description }}</div>
                 </div>
-            </div>
-
-            <!-- 2020 — gauche desktop / normal mobile -->
-            <div class="timeline-row from-left">
-                <!-- MOBILE -->
-                <div class="tl-dot-wrap">
-                    <div class="tl-dot"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-year">2024</div>
-                    <div class="tl-title">Constitution officielle</div>
-                    <div class="tl-desc">
-                         Reconnaissance officielle du CSGR-IA sous l'égide du Ministère de l'Enseignement Supérieur.
-                    </div>
-                </div>
-                <!-- DESKTOP -->
+                {% else %}
+                <!-- GAUCHE -->
                 <div class="tl-left-cell">
-                    <div class="tl-year">2024</div>
-                    <div class="tl-title">Constitution officielle</div>
-                    <div class="tl-desc">
-                        Reconnaissance officielle du CSGR-IA sous l'égide du Ministère de l'Enseignement Supérieur.
-                    </div>
+                    <div class="tl-year">{{ el.annee }}</div>
+                    <div class="tl-title">{{ el.title }}</div>
+                    <div class="tl-desc">{{ el.description }}</div>
                 </div>
                 <div class="tl-center-cell">
                     <div class="tl-dot"></div>
                 </div>
                 <div class="tl-right-cell"></div>
+                {% endif %}
             </div>
-
-            <!-- 2022 — droite desktop / normal mobile -->
-            <div class="timeline-row from-right">
-                <!-- MOBILE -->
-                <div class="tl-dot-wrap">
-                    <div class="tl-dot"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-year">2025</div>
-                    <div class="tl-title">Première conférence nationale</div>
-                    <div class="tl-desc">
-                        Organisation de la 1ère conférence sur l'IA à Libreville avec 15 publications scientifiques majeures.
-                    </div>
-                </div>
-                <!-- DESKTOP -->
-                <div class="tl-left-cell"></div>
-                <div class="tl-center-cell">
-                    <div class="tl-dot"></div>
-                </div>
-                <div class="tl-right-cell">
-                    <div class="tl-year">2025</div>
-                    <div class="tl-title">Première conférence nationale</div>
-                    <div class="tl-desc">
-                        Organisation de la 1ère conférence sur l'IA à Libreville avec 15 publications scientifiques majeures.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2024 — gauche desktop / normal mobile -->
-            <div class="timeline-row from-left">
-                <!-- MOBILE -->
-                <div class="tl-dot-wrap">
-                    <div class="tl-dot"></div>
-                </div>
-                <div class="tl-content">
-                    <div class="tl-year">2026</div>
-                    <div class="tl-title">Expansion internationale</div>
-                    <div class="tl-desc">
-                        Signature de partenariats stratégiques avec l'UNESCO et l'Union Africaine pour le développement de l'IA éthique.
-                    </div>
-                </div>
-                <!-- DESKTOP -->
-                <div class="tl-left-cell">
-                    <div class="tl-year">2026</div>
-                    <div class="tl-title">Expansion internationale</div>
-                    <div class="tl-desc">
-                        Signature de partenariats stratégiques avec l'UNESCO et l'Union Africaine pour le développement de l'IA éthique.
-                    </div>
-                </div>
-                <div class="tl-center-cell">
-                    <div class="tl-dot"></div>
-                </div>
-                <div class="tl-right-cell"></div>
-            </div>
-
+            {% endfor %}
+            {% else %}
+            <p>Aucun événement disponible.</p>
+            {% endif %}
         </div>
     </div>
 
     <hr class="section-divider">
 
-    <div class="mission-bg">
+    <div class="mission-bg" id="mission-objectif">
         <div class="mission-inner">
-            <h2 class="section-h2 reveal">Mission & Objectifs</h2>
+            <h2 class="section-h2 reveal">Mission & Objectif</h2>
             <div class="mission-grid">
                 <div class="mission-card reveal">
                     <h4>Excellence Scientifique</h4>
                     <p>
-                        Promouvoir une recherche de haute qualité en intelligence artificielle, ancrée dans les réalités locales et répondant aux standards internationaux. Nous visons à positionner le Gabon comme un hub d'innovation technologique en Afrique Centrale.
+                        Promouvoir une recherche de haute qualité en intelligence artificielle, ancrée dans les réalités
+                        locales et répondant aux standards internationaux. Nous visons à positionner le Gabon comme un
+                        hub d'innovation technologique en Afrique Centrale.
                     </p>
                 </div>
                 <div class="mission-card reveal">
                     <h4>Souveraineté Numérique</h4>
                     <p>
-                        Développer des solutions d'IA souveraines et adaptées aux besoins spécifiques du Gabon (santé, éducation, environnement), tout en garantissant la protection des données et le respect des normes éthiques.
+                        Développer des solutions d'IA souveraines et adaptées aux besoins spécifiques du Gabon (santé,
+                        éducation, environnement), tout en garantissant la protection des données et le respect des
+                        normes éthiques.
                     </p>
                 </div>
             </div>
@@ -727,11 +660,8 @@
     <hr class="section-divider">
 
     <div class="about-section">
-
         <h2 class="section-h2 reveal">Gouvernance & Organisation</h2>
-
         <div class="gov-persons">
-
             {% for el in '123' %}
             <div class="gov-card">
                 <!-- <div class="gov-photo">
@@ -741,18 +671,14 @@
                 </div> -->
             </div>
             {% endfor %}
-
         </div>
-
         <div class="poles-row reveal">
             <div class="pole-tag">Pôle<br>Recherche</div>
             <div class="pole-tag">Pôle<br>Formation</div>
             <div class="pole-tag">Pôle<br>Veille</div>
             <div class="pole-tag">Pôle<br>Innovation</div>
         </div>
-
     </div>
-
 </div>
 
 <script>

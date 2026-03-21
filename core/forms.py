@@ -2,7 +2,6 @@ from django import forms
 from .models import *
 
 class ContactInfoForm(forms.ModelForm):
-    """Formulaire admin — modifier les infos de contact."""
     class Meta:
         model  = Contact
         fields = [
@@ -38,9 +37,7 @@ class ContactInfoForm(forms.ModelForm):
             'image_hero_contact':     'Image hero page contact',
         }
 
-
 class ContactMessageForm(forms.Form):
-    """Formulaire public — envoyer un message de contact."""
     nom     = forms.CharField(
         max_length=100,
         label='Nom complet',
@@ -69,3 +66,147 @@ class ContactMessageForm(forms.Form):
         if len(message) < 10:
             raise forms.ValidationError("Le message doit contenir au moins 10 caractères.")
         return message
+
+class AproposForm(forms.ModelForm):
+    class Meta:
+        model   = Apropos
+        fields  = ['hero_politique']
+        labels  = {'hero_politique':'Image hero'}
+
+class EvenementForm(forms.ModelForm):
+    class Meta:
+        model   = Evenement
+        fields  = ['annee','title','description','ordre']
+        widgets = {
+            'annee':forms.TextInput(attrs={'placeholder':'2024'}),
+            'title':forms.TextInput(attrs={'placeholder':'Titre'}),
+            'description': forms.Textarea(attrs={'rows': 3}),
+        }
+        labels  = {
+            'annee':'Année',
+            'title':'Titre',
+            'description':'Description',
+            'ordre':"Ordre d'affichage",
+        }
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model   = Profile
+        fields  = [
+            'photo_profile', 'prenom', 'nom',
+            'post', 'role', 'ordre', 'bio', 'linkedin',
+        ]
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 3}),
+        }
+        labels  = {
+            'photo_profile':'Photo',
+            'prenom':'Prénom',
+            'nom':'Nom',
+            'post':'Poste',
+            'role':'Rôle',
+            'ordre':"Ordre d'affichage",
+            'bio':'Biographie',
+            'linkedin':'LinkedIn',
+        }
+
+
+class CarousselForm(forms.ModelForm):
+
+    class Meta:
+        model = Caroussel
+        fields = ['bg', 'poster', 'actif', 'ordre']
+        widgets = {
+            'actif': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+            'ordre': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 0,
+                'placeholder': '0',
+            }),
+            'bg': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*',
+            }),
+            'poster': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*',
+            }),
+        }
+        labels = {
+            'bg':     'Arrière-plan',
+            'poster': 'Affiche',
+            'actif':  'Actif',
+            'ordre':  'Ordre d\'affichage',
+        }
+        help_texts = {
+            'bg':     'Image de fond du slide (recommandé : 1920×1080px).',
+            'poster': 'Affiche centrale du slide (recommandé : ratio 3/4).',
+            'ordre':  'Définit la position du slide dans le carousel.',
+        }
+
+    def clean(self):
+        cleaned = super().clean()
+        bg     = cleaned.get('bg')
+        poster = cleaned.get('poster')
+
+        # Au moins une image est requise
+        if not bg and not poster:
+            raise forms.ValidationError(
+                'Veuillez fournir au moins un arrière-plan ou une affiche.'
+            )
+        return cleaned
+
+
+class MissionForm(forms.ModelForm):
+
+    class Meta:
+        model = Mission
+        fields = ['visuel', 'label', 'title', 'description',
+                  'is_reverse', 'position', 'actif']
+        widgets = {
+            'visuel': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/*',
+            }),
+            'label': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ex : 01 — Recherche',
+            }),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Titre de la mission',
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Description de la mission...',
+            }),
+            'is_reverse': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+            'position': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 0,
+            }),
+            'actif': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+        }
+        labels = {
+            'visuel':     'Visuel',
+            'label':      'Label',
+            'title':      'Titre',
+            'description':'Description',
+            'is_reverse': 'Disposition inversée',
+            'position':   'Position',
+            'actif':      'Actif',
+        }
+        help_texts = {
+            'visuel':     'Image illustrant la mission (recommandé : 4/3).',
+            'label':      'Courte étiquette affichée au-dessus du titre.',
+            'is_reverse': 'Cocher pour inverser image et texte.',
+            'position':   'Ordre d\'apparition dans la liste.',
+        }
+
