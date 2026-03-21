@@ -589,7 +589,7 @@
         <div class="timeline-wrap">
             {% if evenements %}
             {% for el in evenements %}
-            <div class="timeline-row {% if forloop.counter|divisibleby:2%}from-right{% else %}from-left{% endif %}">
+            <div class="timeline-row {% if forloop.counter|divisibleby:2%}from-left{% else %}from-right{% endif %} reveal">
                 <!-- MOBILE -->
                 <div class="tl-dot-wrap">
                     <div class="tl-dot"></div>

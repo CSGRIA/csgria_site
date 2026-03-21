@@ -455,11 +455,13 @@
         </div>
         {% endfor %}
     </div>
-    {% for slide in carousels %}
     <div class="hero-dots" id="heroDots">
-        <button class="hero-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></button>
-    </div>
+    {% for slide in carousels %}
+        <button class="hero-dot {% if forloop.first %}active{% endif %}"
+                data-index="{{ forloop.counter0 }}">
+        </button>
     {% endfor %}
+</div>
 </section>
 
 <div class="hero-cta-bar">
