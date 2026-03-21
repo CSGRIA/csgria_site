@@ -17,7 +17,8 @@ def apropos_page(request):
     appropos = Apropos.objects.first()
     context = {
         'appropos':appropos,
-        'evenements':appropos.evenements.all()
+        'evenements':appropos.evenements.all(),
+        'membres':appropos.profiles.all()
     }
     return render(request,'core/apropos_page.html',context)
 
