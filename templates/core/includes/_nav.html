@@ -273,7 +273,7 @@
 
     .nav-dropdown {
         position: absolute;
-        top: calc(100% + 4px);
+        top: 100%;      
         left: 50%;
         transform: translateX(-50%) translateY(-6px);
         min-width: 190px;
@@ -281,7 +281,7 @@
         border: 1.5px solid var(--border);
         border-radius: 12px;
         box-shadow: 0 12px 40px rgba(10,22,40,0.10);
-        padding: 6px;
+        padding: 10px 6px 6px;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.18s, transform 0.18s;
@@ -342,22 +342,23 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="#" class="nav-link">Actualités</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'core:contact' %}" class="nav-link {% if url_name == 'contact' %}active{% endif %}">Contact</a>
+            </li>
+            <li class="nav-item">
                 <button class="nav-link js-dropdown-toggle">
-                    Recherche
+                    Plus
                     <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
                 </button>
                 <div class="nav-dropdown">
-                    <a href="#">Projets en cours</a>
-                    <a href="#">Publications</a>
+                    <a href="#">Communauté</a>
+                    <a href="#">Recherche</a>
+                    <a href="#">Membres</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Actualités</a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'core:contact' %}" class="nav-link {% if url_name == 'contact' %}active{% endif %}">Contact</a>
             </li>
         </ul>
 
@@ -379,34 +380,25 @@
             </a>
         </li>
         <li>
-            <button class="nav-link js-mobile-toggle">
+            <a href="{% url 'core:apropos' %}" class="nav-link {% if url_name == 'apropos' %}active{% endif %}">
                 À Propos
-                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M6 9l6 6 6-6"/>
-                </svg>
-            </button>
-            <div class="nav-mobile-sub">
-                <a href="#">Notre histoire</a>
-                <a href="#">Gouvernance</a>
-                <a href="#">Membres</a>
-                <a href="#">Communauté</a>
-            </div>
-        </li>
-        <li>
-            <button class="nav-link js-mobile-toggle">
-                Recherche
-                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M6 9l6 6 6-6"/>
-                </svg>
-            </button>
-            <div class="nav-mobile-sub">
-                <a href="#">Projets en cours</a>
-                <a href="#">Publications</a>
-                <a href="#">Laboratoires</a>
-            </div>
+            </a>
         </li>
         <li><a href="#" class="nav-link">Actualités</a></li>
-        <li><a href="#" class="nav-link">Contact</a></li>
+        <li><a href="{% url 'core:contact' %}" class="nav-link {% if url_name == 'contact' %}active{% endif %}">Contact</a></li>
+        <li>
+            <button class="nav-link js-mobile-toggle">
+                Plus
+                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+            <div class="nav-mobile-sub">
+                <a href="#">Communauté</a>
+                <a href="#">Recherche</a>
+                <a href="#">Membres</a>
+            </div>
+        </li>
     </ul>
     <div class="nav-mobile-divider"></div>
     <button class="btn-nav-cta">Rejoindre le comité</button>
@@ -442,21 +434,6 @@
                 dropdown.classList.add('open');
                 chevron.style.transform = 'rotate(180deg)';
             }
-        });
-
-        dropdown.addEventListener('mouseenter', () => {
-            dropdown.classList.add('open');
-            chevron.style.transform = 'rotate(180deg)';
-        });
-
-        dropdown.addEventListener('mouseleave', () => {
-            dropdown.classList.remove('open');
-            chevron.style.transform = '';
-        });
-
-        btn.parentElement.addEventListener('mouseleave', () => {
-            dropdown.classList.remove('open');
-            chevron.style.transform = '';
         });
     });
 
