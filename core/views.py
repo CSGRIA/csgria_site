@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Caroussel,Mission,Apropos
+from .models import Caroussel,Mission,Apropos, Profile
 
 
 
@@ -21,6 +21,13 @@ def apropos_page(request):
         'membres':appropos.profiles.all()
     }
     return render(request,'core/apropos_page.html',context)
+
+def communaute_page(request):
+    membres = Profile.objects.filter(role='membre').order_by('ordre')
+    context = {
+        'membres': membres,
+    }
+    return render(request, 'core/communaute_page.html', context)
 
 def contact_page(request):
     return render(request,'core/contact_page.html')
