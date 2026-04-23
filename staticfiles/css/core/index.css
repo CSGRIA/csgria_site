@@ -1,0 +1,40 @@
+* { padding: 0; margin: 0; box-sizing: border-box; }
+
+        :root {
+            /* GREEN */
+            --green-50:  #E6FAF4;
+            --green-100: #A8EDD4;
+            --green-500: #00C07A;
+            --green-800: #006641;
+
+            /* BLUE */
+            --blue-50:   #EBF5FF;
+            --blue-100:  #B3D9FF;
+            --blue-500:  #0078D4;
+            --blue-800:  #003A6B;
+
+            /* NEUTRALS */
+            --white:      #FFFFFF;
+            --soft-white: #F7FAFB;
+            --navy:       #0A1628;
+            --text-dark:  #1A2942;
+            --text-mid:   #3D5175;
+            --text-light: #64748B;
+            --border:     #E2EBF4;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--white);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        *::-webkit-scrollbar{
+            width: 0px;
+        }
+        main { flex: 1; }

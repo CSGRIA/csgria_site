@@ -1,0 +1,128 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block title %}CSGR-IA — {{ pole.nom }}{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/core/pole.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="pp-section reveal">
+    <div class="pp-right">
+        {% if pole.image_hero %}
+            <img src="{{ pole.image_hero.url }}" alt="{{ pole.nom }}">
+        {% else %}
+            <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ pole.nom }}" onerror="this.style.display='none'">
+        {% endif %}
+    </div>
+    <div class="pp-left">
+        <div class="pp-brand">
+            <img src="{% static 'imgs/logo.svg' %}" alt="CSGR-IA" onerror="this.style.display='none'">
+            <div class="pp-brand-text">
+                <strong>CSGR-IA</strong>
+                <span>Pôle {{ pole.nom }}</span>
+            </div>
+        </div>
+        <h1 class="pp-title">Présentation du Pôle</h1>
+        <div class="pp-body">
+            <p>{{ pole.description_courte }}</p>
+            {% if pole.description_longue %}<p>{{ pole.description_longue }}</p>{% endif %}
+        </div>
+    </div>
+</section>
+<hr class="section-divider">
+
+{% if axes %}
+<section class="axes-section reveal">
+    <div class="axes-header">
+        <div class="axes-header-bar"></div>
+        <h2 class="axes-h2">Axes de recherche</h2>
+    </div>
+    <div class="axes-trapeze-row">
+        {% for axe in axes %}
+        <div class="axe-trap">
+            {% if axe.image %}
+                <img src="{{ axe.image.url }}" alt="{{ axe.label }}">
+            {% else %}
+                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ axe.label }}" onerror="this.style.display='none'">
+            {% endif %}
+            <div class="axe-overlay">
+                <span class="axe-num">Axe {{ forloop.counter }}</span>
+                <div class="axe-sep"></div>
+                <span class="axe-label">{{ axe.label }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<hr class="section-divider">
+{% endif %}
+
+{% if membres %}
+<section class="membres-section">
+    <div class="membres-header">
+        <h2 class="membres-titre">Membres du Pôle</h2>
+        <p class="membres-sub">Une équipe pluridisciplinaire d'experts et de chercheurs dévoués à l'avancement de l'IA au Gabon.</p>
+    </div>
+
+    <script id="membres-data" type="application/json">
+    [
+        {% for m in membres %}
+        {
+            "initials": "{{ m.prenom|first|upper }}{{ m.nom|first|upper }}",
+            "name": "{{ m.prenom|upper }}\n{{ m.nom|upper }}",
+            "role": "{{ m.get_role_display }}",
+            "sub": "{% if m.specialite %}{{ m.specialite }}{% else %}{{ m.get_role_display }}{% endif %}",
+            "photo": "{% if m.has_photo %}{{ m.photo_profile.url }}{% endif %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+    </script>
+
+    <div class="arc-stage" id="arcStage"></div>
+
+    <div class="membres-nav">
+        <button class="membres-nav-btn" id="membresNavPrev" aria-label="Précédent">&#8592;</button>
+        <div class="membres-dots" id="membresDots"></div>
+        <button class="membres-nav-btn" id="membresNavNext" aria-label="Suivant">&#8594;</button>
+    </div>
+
+    <div class="voir-poles-wrap">
+        <a href="#" class="voir-poles-link">
+            Voir tous les pôles
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+</section>
+<hr class="section-divider">
+{% endif %}
+
+
+<section class="mission-section reveal">
+    <div class="mission-brand">
+        <img src="{% static 'imgs/logo.svg' %}" alt="CSGR-IA" onerror="this.style.display='none'">
+        <div class="mission-brand-text">
+            <strong>CSGR-IA</strong>
+            <span>Comité Scientifique de Recherche</span>
+        </div>
+    </div>
+    <h2 class="mission-h2">Mission du Pôle</h2>
+    <div class="mission-row">
+        <div class="mission-left">
+            <p>{{ pole.mission }}</p>
+            {% if pole.mission_detail %}<p>{{ pole.mission_detail }}</p>{% endif %}
+        </div>
+        {% if pole.image_mission %}
+        <div class="mission-right">
+            <img src="{{ pole.image_mission.url }}" alt="Mission {{ pole.nom }}">
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<script src="{% static 'js/core/pole.js' %}"></script>
+{% endblock %}

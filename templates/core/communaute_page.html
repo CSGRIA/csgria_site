@@ -1,0 +1,199 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block title %}Communauté — CSGR-IA{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/core/communaute.css' %}">
+{% endblock %}
+
+{% block nav %}
+    {% include 'core/includes/_nav.html' %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'core/includes/_footer.html' %}
+{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="comm-hero">
+    <div class="comm-hero-bg"></div>
+    <div class="comm-hero-content">
+        <div class="comm-hero-text">
+            <span class="comm-hero-tag">Communauté IA</span>
+            <h1>La communauté des acteurs engagés autour de l'IA au Gabon</h1>
+            <p>Le CSGR-IA fédère les experts, chercheurs et institutions pour accélérer l'appropriation et le développement de l'IA souveraine sur le territoire.</p>
+        </div>
+        <div class="comm-stats-card">
+            <div class="comm-stats-grid">
+                <div class="comm-stat-item">
+                    <h3>+150</h3>
+                    <span>Membres actifs</span>
+                </div>
+                <div class="comm-stat-item">
+                    <h3>2000</h3>
+                    <span>Partenaires</span>
+                </div>
+            </div>
+            <a href="#" class="btn-adherer">
+                ADHÉRER
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- PILIERS -->
+<section class="section-piliers">
+    <span class="section-tag">Nos engagements</span>
+    <h2 class="section-title">Nos piliers d'action</h2>
+    <p class="section-subtitle">Participer aux groupes thématiques & données en Afrique au Gabon.</p>
+
+    <div class="piliers-grid">
+        <div class="pilier-card">
+            <div class="pilier-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+            </div>
+            <h4>Recherche</h4>
+            <h3>Recherche et groupes de travail</h3>
+            <p>Rejoignez les initiatives de recherche sur l'intelligence artificielle.</p>
+            <a href="#" class="pilier-link">
+                Rejoindre un groupe
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="pilier-card">
+            <div class="pilier-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <h4>Éducation</h4>
+            <h3>Formation et masterclasses</h3>
+            <p>Accédez aux formations continues et formations en IA générative.</p>
+            <a href="#" class="pilier-link">
+                Voir le catalogue
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="pilier-card">
+            <div class="pilier-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </div>
+            <h4>Événements</h4>
+            <h3>Événements et meetups</h3>
+            <p>Agenda des rencontres, hackathons et conférences IA au Gabon.</p>
+            <a href="#" class="pilier-link">
+                Voir l'agenda
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ACTUALITES -->
+<section class="section-actu">
+    <div class="actu-header">
+        <div>
+            <span class="section-tag">Actualités</span>
+            <h2 class="section-title">Actu du pôle</h2>
+            <p>Découvrez les dernières initiatives et réalisations de la communauté CSGR-IA.</p>
+        </div>
+        <div class="actu-filters">
+            <button class="filter-btn">Filtrer</button>
+            <button class="filter-btn">Date</button>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="timeline-grid">
+            <div class="timeline-item">
+                <span class="timeline-date">14 octobre</span>
+                <p class="timeline-text">Masterclass NLP — Traitement du langage naturel pour les langues locales</p>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">01 septembre</span>
+                <p class="timeline-text">Signature de partenariat avec l'ENSET pour la formation et la recherche</p>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">22 septembre</span>
+                <p class="timeline-text">Publication de notre rapport sur l'impact de l'IA au Gabon</p>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">15 août</span>
+                <p class="timeline-text">Lancement de la plateforme d'annuaire des compétences IA</p>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROFILS -->
+<section class="section-profils">
+    <span class="section-tag">Profils</span>
+    <h2 class="section-title">Ils font la communauté</h2>
+    <p class="section-subtitle">Experts, entrepreneurs, chercheurs et institutions mobilisés pour l'IA souveraine.</p>
+
+    <div class="profils-grid">
+        <div class="profil-card-large">
+            <div class="profil-info">
+                <h4>Membre</h4>
+                <h3>Sarah M., data scientist</h3>
+                <p>Chercheuse, spécialiste en apprentissage automatique.</p>
+                <a href="#" class="pilier-link">Voir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+            </div>
+            <div class="profil-img-placeholder">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            </div>
+        </div>
+
+        <div class="profils-list">
+            <div class="profil-card-small">
+                <div class="profil-info">
+                    <h4>Stratégie</h4>
+                    <h3>Jean M., directeur</h3>
+                    <p>Pôle Stratégie, Direction des initiatives de valorisation</p>
+                    <a href="#" class="pilier-link">Voir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+                </div>
+                <div class="profil-img-placeholder" style="width: 80px; height: 80px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                </div>
+            </div>
+            <div class="profil-card-small">
+                <div class="profil-info">
+                    <h4>Recherche</h4>
+                    <h3>Awa L., chercheuse</h3>
+                    <p>Université Omar Bongo, Chercheuse sur les impacts éthiques</p>
+                    <a href="#" class="pilier-link">Voir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+                </div>
+                <div class="profil-img-placeholder" style="width: 80px; height: 80px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta">
+    <div class="cta-container">
+        <div class="cta-content">
+            <h2>Agissez pour l'IA souveraine</h2>
+            <p>L'avenir se construit maintenant. Rejoignez ceux qui façonnent l'intelligence artificielle gabonaise.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-navy">Adhérer</a>
+                <a href="#" class="btn-link">En savoir plus</a>
+            </div>
+        </div>
+        <div class="cta-image">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#CBD5E0" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

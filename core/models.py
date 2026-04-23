@@ -1,6 +1,8 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
+
 
 
 
@@ -86,8 +88,6 @@ class Contact(models.Model):
 class Apropos(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     hero_politique = models.ImageField(upload_to='apropos/', blank=True, null=True)
-
-    # accessibles via : apropos.evenements.all() et apropos.profiles.all()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -289,5 +289,89 @@ class Mission(models.Model):
     @property
     def has_visuel(self):
         return bool(self.visuel)
+    
+
+class AxeRecherche(models.Model):
+    label = models.CharField("Libellé de l'axe", max_length=120)
+    image = models.ImageField(
+        "Image de l'axe",
+        upload_to="poles/axes/",
+        blank=True, null=True,
+        help_text="Image de fond de la carte (recommandé : 800×480 px)."
+    )
+    ordre = models.PositiveSmallIntegerField("Ordre d'affichage", default=0)
+
+    class Meta:
+        ordering = ["ordre"]
+        verbose_name = "Axe de recherche"
+        verbose_name_plural = "Axes de recherche"
+
+    def __str__(self):
+        return self.label
 
 
+class Pole(models.Model):
+    nom = models.CharField("Nom du pôle", max_length=200)
+    slug = models.SlugField(
+        unique=True, blank=True,
+        help_text="Rempli automatiquement à partir du nom."
+    )
+    description_courte = models.TextField(
+        "Description courte (hero)",
+        help_text="Affiché sous le titre dans le bandeau héro."
+    )
+    mission = models.TextField(
+        "Mission (paragraphe principal)",
+        blank=True
+    )
+    mission_detail = models.TextField(
+        "Mission (paragraphe complémentaire)",
+        blank=True
+    )
+    image_hero = models.ImageField(
+        "Image héro",
+        upload_to="poles/hero/",
+        blank=True, null=True,
+        help_text="Grande image de fond du bandeau héro (recommandé : 1920×700 px)."
+    )
+    image_mission = models.ImageField(
+        "Image de la section Mission",
+        upload_to="poles/mission/",
+        blank=True, null=True,
+        help_text="Image affichée à côté du texte de mission (recommandé : 800×600 px)."
+    )
+    axes = models.ManyToManyField(
+        AxeRecherche,
+        blank=True,
+        verbose_name="Axes de recherche",
+        related_name="poles"
+    )
+    membres = models.ManyToManyField(
+        Profile,          
+        blank=True,
+        verbose_name="Membres du pôle",
+        related_name="poles"
+    )
+
+    actif = models.BooleanField("Actif (visible sur le site)", default=True)
+    ordre = models.PositiveSmallIntegerField("Ordre d'affichage", default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["ordre", "nom"]
+        verbose_name = "Pôle"
+        verbose_name_plural = "Pôles"
+
+    # ── Helpers ──────────────────────────────────────────────
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nom)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nom
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("pole_detail", kwargs={"slug": self.slug})

@@ -1,0 +1,233 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }} — CSGR-IA{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/actualite/articles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-page">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <div class="breadcrumb-inner">
+            <a href="{% url 'core:home' %}">Accueil</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <a href="{% url 'actualite:actualite_index' %}">Actualités</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">{{ article.title }}</span>
+        </div>
+    </nav>
+
+    <!-- Corps principal + sidebar -->
+    <div class="detail-outer">
+
+        <!-- ── Article ── -->
+        <article class="detail-article" aria-labelledby="article-title">
+
+            <header class="article-header reveal">
+                <h1 id="article-title" class="article-title">{{ article.title }}</h1>
+
+                <div class="article-meta">
+                    <span class="article-meta-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <time datetime="{{ article.published_at|date:'Y-m-d' }}">{{ article.published_at|date:"d F Y" }}</time>
+                    </span>
+                    <span class="article-meta-sep" aria-hidden="true"></span>
+                    <span class="article-meta-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Par {{ article.author }}
+                    </span>
+                    <span class="article-meta-sep" aria-hidden="true"></span>
+                    <span class="article-meta-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Temps de lecture : {{ article.reading_time }} min
+                    </span>
+                </div>
+            </header>
+
+            <!-- Image principale -->
+            {% if article.featured_image %}
+            <div class="article-featured-img reveal">
+                <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" width="900" height="506">
+            </div>
+            {% if article.image_caption %}
+            <p class="article-img-caption">{{ article.image_caption }}</p>
+            {% endif %}
+            {% else %}
+            <div class="article-featured-img reveal">
+                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ article.title }}" width="900" height="506">
+            </div>
+            {% endif %}
+
+            <!-- Corps -->
+            <div class="article-body reveal">
+                {% if article.body %}
+                    {{ article.body|safe }}
+                {% else %}
+                    <p>{{ article.excerpt }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Tags + partage -->
+            <div class="article-tags reveal">
+                <span class="article-tags-label">Mots-clés :</span>
+                {% for tag in article.tags.all %}
+                <a href="{% url 'actualite:actualite_index' %}?tag={{ tag.name }}" class="tag-chip">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+
+            <div class="article-share reveal">
+                <span class="share-label">Partager :</span>
+
+                <!-- Twitter / X -->
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ article.title|urlencode }}"
+                   target="_blank" rel="noopener noreferrer"
+                   class="share-btn" aria-label="Partager sur X (Twitter)">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ article.title|urlencode }}"
+                   target="_blank" rel="noopener noreferrer"
+                   class="share-btn" aria-label="Partager sur LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+                    </svg>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                   target="_blank" rel="noopener noreferrer"
+                   class="share-btn" aria-label="Partager sur Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                </a>
+            </div>
+
+        </article>
+
+        <!-- ── Sidebar ── -->
+        <aside class="detail-sidebar" aria-label="Contenu complémentaire">
+
+            <!-- Newsletter -->
+            <div class="sb-block">
+                <span class="sb-label">Restez informés de l'actualité</span>
+            </div>
+            <form class="sb-newsletter" method="POST" action="#" novalidate>
+                {% csrf_token %}
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Inscrivez-vous à notre newsletter"
+                    required
+                    autocomplete="email"
+                    aria-label="Adresse e-mail pour la newsletter">
+                <button type="submit" class="sb-newsletter-btn" aria-label="S'inscrire à la newsletter">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+            <div class="sb-toast" role="status" aria-live="polite"></div>
+
+            <!-- Image décorative -->
+            <div class="sb-thumb-block" aria-hidden="true">
+                <img src="{% static 'imgs/2148882592.jpg' %}" alt="" width="480" height="270" loading="lazy">
+            </div>
+
+            <!-- Dernières nouvelles -->
+            <div class="sb-block" style="border-top:1px solid var(--border); margin-top:16px;">
+                <span class="sb-label">Dernières Nouvelles</span>
+                <div class="sb-recent-list">
+                    {% for recent in recent_articles %}
+                    <a href="{% url 'actualite:actualite_detail' recent.slug %}" class="sb-recent-item">
+                        <div class="sb-recent-thumb">
+                            {% if recent.featured_image %}
+                                <img src="{{ recent.featured_image.url }}" alt="{{ recent.title }}" width="60" height="50" loading="lazy">
+                            {% else %}
+                                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ recent.title }}" width="60" height="50" loading="lazy">
+                            {% endif %}
+                        </div>
+                        <div class="sb-recent-body">
+                            <p class="sb-recent-title">{{ recent.title }}</p>
+                            <p class="sb-recent-date">{{ recent.published_at|date:"d M Y" }}</p>
+                        </div>
+                    </a>
+                    {% empty %}
+                        <p style="font-size:12px; color:var(--text-mid);">Aucun article récent.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- ── Articles liés ── -->
+    {% if related_articles %}
+    <section class="related-section" aria-labelledby="related-heading">
+        <div class="related-inner">
+            <h2 id="related-heading" class="section-h2 reveal">Dernières Nouvelles</h2>
+
+            <div class="related-grid">
+                {% for rel in related_articles %}
+                <a href="{% url 'actualite:actualite_detail' rel.slug %}" class="related-card reveal">
+                    <div class="related-thumb">
+                        {% if rel.featured_image %}
+                            <img src="{{ rel.featured_image.url }}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
+                        {% else %}
+                            <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
+                        {% endif %}
+                    </div>
+                    <div class="related-body">
+                        <span class="related-date">{{ rel.published_at|date:"d M Y" }}</span>
+                        <p class="related-title">{{ rel.title }}</p>
+                        <p class="related-excerpt">{{ rel.excerpt|truncatewords:18 }}</p>
+                        <span class="related-link">
+                            Lire la suite
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- Bouton retour aux actualités -->
+            <div style="text-align:center; margin-top:36px;">
+                <a href="{% url 'actualite:actualite_index' %}" style="
+                    display: inline-flex; align-items: center; gap: 8px;
+                    font-size: 13.5px; font-weight: 700;
+                    color: var(--blue-500);
+                    border: 1.5px solid var(--blue-500);
+                    padding: 10px 28px;
+                    text-decoration: none;
+                    transition: background 0.2s, color 0.2s;
+                " onmouseover="this.style.background='var(--blue-500)';this.style.color='#fff'"
+                   onmouseout="this.style.background='transparent';this.style.color='var(--blue-500)'">
+                    Afficher plus
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+
+<script src="{% static 'js/actualite/articles.js' %}"></script>
+{% endblock %}

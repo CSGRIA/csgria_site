@@ -1,53 +1,40 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}CSGR-IA{% endblock %}</title>
+    <title>{% block title %}CSGRIA - Comité de Recherche sur l’IA au Gabon{% endblock %}</title>
+    <meta name="description" content="CSGRIA est le Comité de recherche sur l’intelligence artificielle au Gabon. Nous développons des projets en IA, data science et innovation technologique pour le progrès scientifique en Afrique.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="fr">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="icon" href="{% static 'imgs/favicon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'imgs/logo.svg' %}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CSGRIA - Intelligence Artificielle au Gabon">
+    <meta property="og:description" content="Recherche et innovation en intelligence artificielle, data science et technologie en Afrique.">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% static 'imgs/logo.svg' %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CSGRIA - IA au Gabon">
+    <meta name="twitter:description" content="Recherche et innovation en intelligence artificielle et data science en Afrique.">
+    <meta name="twitter:image" content="{% static 'imgs/logo.svg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * { padding: 0; margin: 0; box-sizing: border-box; }
-
-        :root {
-            /* GREEN */
-            --green-50:  #E6FAF4;
-            --green-100: #A8EDD4;
-            --green-500: #00C07A;
-            --green-800: #006641;
-
-            /* BLUE */
-            --blue-50:   #EBF5FF;
-            --blue-100:  #B3D9FF;
-            --blue-500:  #0078D4;
-            --blue-800:  #003A6B;
-
-            /* NEUTRALS */
-            --white:      #FFFFFF;
-            --soft-white: #F7FAFB;
-            --navy:       #0A1628;
-            --text-dark:  #1A2942;
-            --text-mid:   #3D5175;
-            --text-light: #64748B;
-            --border:     #E2EBF4;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--white);
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        *::-webkit-scrollbar{
-            width: 0px;
-        }
-        main { flex: 1; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/core/index.css' %}">
     {% block style %}{% endblock %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CSGRIA",
+      "url": "{{ request.build_absolute_uri }}",
+      "description": "Comité de recherche sur l’intelligence artificielle au Gabon",
+      "sameAs": []
+    }
+    </script>
 </head>
 <body>
     {% include 'core/includes/_nav.html' %}

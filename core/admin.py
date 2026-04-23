@@ -216,3 +216,96 @@ class MissionAdmin(admin.ModelAdmin):
         updated = queryset.update(actif=False)
         self.message_user(request, f'{updated} mission(s) désactivée(s).')
 
+@admin.register(AxeRecherche)
+class AxeRechercheAdmin(admin.ModelAdmin):
+    list_display  = ("label", "apercu_image", "ordre")
+    list_editable = ("ordre",)
+    ordering      = ("ordre",)
+    search_fields = ("label",)
+
+    def apercu_image(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="height:48px;object-fit:cover;border-radius:4px;">',
+                obj.image.url
+            )
+        return "—"
+    apercu_image.short_description = "Aperçu"
+
+
+# ─────────────────────────────────────────────────────────────
+#  Pole
+# ─────────────────────────────────────────────────────────────
+class AxeInline(admin.TabularInline):
+    """Axes rattachés directement depuis la fiche Pôle."""
+    model          = Pole.axes.through
+    extra          = 1
+    verbose_name   = "Axe de recherche"
+    verbose_name_plural = "Axes de recherche"
+
+
+class MembreInline(admin.TabularInline):
+    """Membres rattachés directement depuis la fiche Pôle."""
+    model          = Pole.membres.through
+    extra          = 1
+    verbose_name   = "Membre"
+    verbose_name_plural = "Membres"
+
+
+@admin.register(Pole)
+class PoleAdmin(admin.ModelAdmin):
+    list_display   = ("nom", "slug", "actif", "ordre", "apercu_hero", "updated_at")
+    list_editable  = ("actif", "ordre")
+    list_filter    = ("actif",)
+    search_fields  = ("nom", "slug")
+    prepopulated_fields = {"slug": ("nom",)}
+    ordering       = ("ordre", "nom")
+    readonly_fields = ("created_at", "updated_at", "apercu_hero_large", "apercu_mission_large")
+
+    fieldsets = (
+        ("Identité", {
+            "fields": ("nom", "slug", "actif", "ordre")
+        }),
+        ("Textes", {
+            "fields": ("description_courte", "mission", "mission_detail")
+        }),
+        ("Images", {
+            "fields": (
+                "image_hero",    "apercu_hero_large",
+                "image_mission", "apercu_mission_large",
+            )
+        }),
+        ("Métadonnées", {
+            "classes": ("collapse",),
+            "fields": ("created_at", "updated_at")
+        }),
+    )
+    filter_horizontal = ()  
+    inlines = [AxeInline, MembreInline]
+
+    def apercu_hero(self, obj):
+        if obj.image_hero:
+            return format_html(
+                '<img src="{}" style="height:40px;object-fit:cover;border-radius:4px;">',
+                obj.image_hero.url
+            )
+        return "—"
+    apercu_hero.short_description = "Héro"
+
+    def apercu_hero_large(self, obj):
+        if obj.image_hero:
+            return format_html(
+                '<img src="{}" style="max-height:200px;max-width:100%;border-radius:6px;margin-top:8px;">',
+                obj.image_hero.url
+            )
+        return "Aucune image."
+    apercu_hero_large.short_description = "Aperçu de l'image héro"
+
+    def apercu_mission_large(self, obj):
+        if obj.image_mission:
+            return format_html(
+                '<img src="{}" style="max-height:200px;max-width:100%;border-radius:6px;margin-top:8px;">',
+                obj.image_mission.url
+            )
+        return "Aucune image."
+    apercu_mission_large.short_description = "Aperçu de l'image mission"
