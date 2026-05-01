@@ -38,3 +38,11 @@
             width: 0px;
         }
         main { flex: 1; }
+
+        .footer-col-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }

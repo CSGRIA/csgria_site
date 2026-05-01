@@ -90,12 +90,13 @@
 }
 
 .hero-dot {
-    width: 8px; height: 8px;
+    width: 48px; height: 48px;
     border-radius: 50%;
     background: rgba(255,255,255,0.28);
     border: none; padding: 0; cursor: pointer;
     transition: all 0.35s;
 }
+
 
 .hero-dot.active {
     width: 12px; height: 12px;

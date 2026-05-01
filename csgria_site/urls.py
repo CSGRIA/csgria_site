@@ -3,10 +3,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from .views import construction_page
 
 urlpatterns = [
     path('secure-panel-csgria/', admin.site.urls),
-    path('', include(('core.urls', 'core'), namespace='core')),
+    path('',construction_page,name='home'),
+    path('core/', include(('core.urls', 'core'), namespace='core')),
     path('actualites/', include(('actualite.urls', 'actualite'), namespace='actualite')),
     path(
         "robots.txt",

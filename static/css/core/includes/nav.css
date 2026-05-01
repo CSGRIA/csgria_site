@@ -4,6 +4,7 @@
     z-index: 1000;
 }
 
+
 #nav {
     display: flex;
     justify-content: space-between;
@@ -192,7 +193,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     color: var(--white);
-    background: var(--green-500);
+    background: var(--green-800);
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -200,9 +201,10 @@
 }
 
 .btn-nav-cta:hover {
-    background: var(--green-800);
-    transform: translateY(-2px);
+    background: var(--green-500);
+    color: var(--navy);
 }
+
 
 @media (min-width: 900px) {
     #nav {
@@ -270,7 +272,7 @@
 
     .nav-dropdown {
         position: absolute;
-        top: 100%;      
+        top: 100%;
         left: 50%;
         transform: translateX(-50%) translateY(-6px);
         min-width: 190px;

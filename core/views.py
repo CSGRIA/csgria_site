@@ -5,9 +5,11 @@ from .models import Caroussel, Mission, Apropos, Pole, Profile
 def home_view(request):
     carousels = Caroussel.objects.filter(actif=True).order_by('ordre', 'date_creat')
     missions  = Mission.objects.filter(actif=True).order_by('position', 'date_creat')
+    premiere_slide = carousels.first()
     return render(request, 'core/home_page.html', {
         'carousels': carousels,
         'missions':  missions,
+        'premiere_slide': premiere_slide,
     })
 
 

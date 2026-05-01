@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import *
+from core.models import *
 
 class EvenementInline(admin.TabularInline):
     model  = Evenement
@@ -37,6 +37,7 @@ class ContactAdmin(admin.ModelAdmin):
                 'mailto_url',
                 'support_group_whatsapp',
                 'whatsapp_url',
+                'support_chaine_whatsapp',
                 'support_adresse',
             ),
         }),
@@ -61,7 +62,7 @@ class ContactAdmin(admin.ModelAdmin):
     @admin.display(boolean=True, description='Réseaux sociaux')
     def has_social_links(self, obj):
         return obj.has_social_links
-    
+
 @admin.register(Apropos)
 class AproposAdmin(admin.ModelAdmin):
     list_display    = ('__str__', 'has_hero', 'updated_at')
@@ -280,7 +281,7 @@ class PoleAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at")
         }),
     )
-    filter_horizontal = ()  
+    filter_horizontal = ()
     inlines = [AxeInline, MembreInline]
 
     def apercu_hero(self, obj):

@@ -1,5 +1,5 @@
 from django import forms
-from .models import *
+from core.models import *
 
 class ContactInfoForm(forms.ModelForm):
     class Meta:
@@ -8,6 +8,7 @@ class ContactInfoForm(forms.ModelForm):
             'support_tel',
             'support_email',
             'support_group_whatsapp',
+            'support_chaine_whatsapp',
             'support_adresse',
             'reseau_linkedin',
             'reseau_github',
@@ -19,6 +20,7 @@ class ContactInfoForm(forms.ModelForm):
             'support_tel':            forms.TextInput(attrs={'placeholder': '+212 6 00 00 00 00'}),
             'support_email':          forms.EmailInput(attrs={'placeholder': 'contact@example.com'}),
             'support_group_whatsapp': forms.TextInput(attrs={'placeholder': 'https://chat.whatsapp.com/... ou +212...'}),
+            'support_chaine_whatsapp':forms.TextInput(attrs={'placeholder': 'whatsapp:https://whatsapp.com/channe/...'}),
             'support_adresse':        forms.TextInput(attrs={'placeholder': 'Adresse complète'}),
             'reseau_linkedin':        forms.URLInput(attrs={'placeholder': 'https://linkedin.com/in/...'}),
             'reseau_github':          forms.URLInput(attrs={'placeholder': 'https://github.com/...'}),
@@ -29,6 +31,7 @@ class ContactInfoForm(forms.ModelForm):
             'support_tel':            'Téléphone',
             'support_email':          'Email de support',
             'support_group_whatsapp': 'WhatsApp (lien ou numéro)',
+            'support_chaine_whatsapp': 'Chaine WhatsApp (lien)',
             'support_adresse':        'Adresse',
             'reseau_linkedin':        'LinkedIn',
             'reseau_github':          'GitHub',

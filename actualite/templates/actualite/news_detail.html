@@ -64,7 +64,7 @@
             {% endif %}
             {% else %}
             <div class="article-featured-img reveal">
-                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ article.title }}" width="900" height="506">
+                <img src="{% static 'imgs/2148882592.avif' %}" alt="{{ article.title }}" width="900" height="506">
             </div>
             {% endif %}
 
@@ -144,7 +144,7 @@
 
             <!-- Image décorative -->
             <div class="sb-thumb-block" aria-hidden="true">
-                <img src="{% static 'imgs/2148882592.jpg' %}" alt="" width="480" height="270" loading="lazy">
+                <img src="{% static 'imgs/2148882592.avif' %}" alt="" width="480" height="270" loading="lazy">
             </div>
 
             <!-- Dernières nouvelles -->
@@ -157,7 +157,7 @@
                             {% if recent.featured_image %}
                                 <img src="{{ recent.featured_image.url }}" alt="{{ recent.title }}" width="60" height="50" loading="lazy">
                             {% else %}
-                                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ recent.title }}" width="60" height="50" loading="lazy">
+                                <img src="{% static 'imgs/2148882592.avif' %}" alt="{{ recent.title }}" width="60" height="50" loading="lazy">
                             {% endif %}
                         </div>
                         <div class="sb-recent-body">
@@ -187,7 +187,7 @@
                         {% if rel.featured_image %}
                             <img src="{{ rel.featured_image.url }}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
                         {% else %}
-                            <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
+                            <img src="{% static 'imgs/2148882592.avif' %}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
                         {% endif %}
                     </div>
                     <div class="related-body">

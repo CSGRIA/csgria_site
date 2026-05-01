@@ -39,7 +39,7 @@
                     {% if hero and hero.image %}
                         <img src="{{ hero.image.url }}" alt="{{ hero.title }}" width="800" height="600">
                     {% else %}
-                        <img src="{% static 'imgs/2148882592.jpg' %}" alt="Actualité CSGR-IA" width="800" height="600">
+                        <img src="{% static 'imgs/2148882592.avif' %}" alt="Actualité CSGR-IA" width="800" height="600">
                     {% endif %}
                 </div>
             </div>
@@ -74,7 +74,7 @@
                         {% if article.featured_image %}
                             <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" width="220" height="140" loading="lazy">
                         {% else %}
-                            <img src="{% static 'imgs/2148882592.jpg' %}" alt="Actualité" width="220" height="140" loading="lazy">
+                            <img src="{% static 'imgs/2148882592.avif' %}" alt="Actualité" width="220" height="140" loading="lazy">
                         {% endif %}
                     </div>
                 </a>
@@ -124,7 +124,7 @@
                 <div class="sb-toast" role="status" aria-live="polite"></div>
 
                 <div class="sb-thumb-block" aria-hidden="true">
-                    <img src="{% static 'imgs/2148882592.jpg' %}" alt="" width="480" height="270" loading="lazy">
+                    <img src="{% static 'imgs/2148882592.avif' %}" alt="" width="480" height="270" loading="lazy">
                 </div>
             </aside>
         </div>

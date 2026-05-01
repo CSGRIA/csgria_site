@@ -3,32 +3,42 @@
 
 {% block title %}CSGR-IA — Intelligence Artificielle au Gabon{% endblock %}
 
+{% block preload %}
+{% if premiere_slide %}
+<link rel="preload" as="image"
+      href="{{ premiere_slide.bg.url }}"
+      fetchpriority="high">
+{% endif %}
+{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/core/home.css' %}">
 {% endblock %}
 
+
 {% block content %}
-<section class="hero-carousel" id="heroCarousel">
-    <div class="hero-track" id="heroTrack">
-        {% for slide in carousels %}
-        <div class="hero-slide {% if forloop.first %}active{% endif %}">
-            <div class="hero-slide-bg" style="background-image:url('{{ slide.bg_url }}');"></div>
-            {% if slide.has_poster %}
-            <div class="hero-slide-poster">
-                <img height="100%" style="object-fit:cover;" src="{{ slide.poster_url }}" alt="Colloque IA & Transformation Digitale"
-                    onerror="this.parentElement.style.background='var(--blue-800)';this.style.display='none';">
-            </div>
-            {% endif %}
-        </div>
-        {% endfor %}
+<section class="hero-carousel" id="heroCarousel" style="position:relative; overflow:hidden;">
+  <canvas id="netCanvas" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></canvas>
+  <div class="hero-track" id="heroTrack">
+    {% for slide in carousels %}
+    <div class="hero-slide {% if forloop.first %}active{% endif %}">
+      <div class="hero-slide-bg" style="background-image:url('{{ slide.bg_url }}');"></div>
+      {% if slide.has_poster %}
+      <div class="hero-slide-poster">
+        <img height="100%" style="object-fit:cover;" src="{{ slide.poster_url }}"
+          alt="Colloque IA & Transformation Digitale"
+          onerror="this.parentElement.style.background='var(--blue-800)';this.style.display='none';">
+      </div>
+      {% endif %}
     </div>
-    <div class="hero-dots" id="heroDots">
-        {% for slide in carousels %}
-        <button class="hero-dot {% if forloop.first %}active{% endif %}"
-                data-index="{{ forloop.counter0 }}">
-        </button>
-        {% endfor %}
-    </div>
+    {% endfor %}
+  </div>
+  <div class="hero-dots" id="heroDots">
+    {% for slide in carousels %}
+    <button class="hero-dot {% if forloop.first %}active{% endif %}"
+            data-index="{{ forloop.counter0 }}"></button>
+    {% endfor %}
+  </div>
 </section>
 
 <div class="hero-cta-bar">

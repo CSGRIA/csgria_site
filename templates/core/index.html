@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+ {% load csp %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -24,14 +25,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/core/index.css' %}">
+    {% block preload %}{% endblock %}
     {% block style %}{% endblock %}
-    <script type="application/ld+json">
+
+    <script type="application/ld+json" nonce="{{ request.csp_nonce }}">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "CSGRIA",
       "url": "{{ request.build_absolute_uri }}",
-      "description": "Comité de recherche sur l’intelligence artificielle au Gabon",
+      "description": "Comité de recherche sur l'intelligence artificielle au Gabon",
       "sameAs": []
     }
     </script>

@@ -83,7 +83,7 @@
             </div>
             {% else %}
             <div class="ev-hero-img">
-                <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ event.title }}" width="800" height="600">
+                <img src="{% static 'imgs/2148882592.avif' %}" alt="{{ event.title }}" width="800" height="600">
             </div>
             {% endif %}
 
@@ -247,7 +247,7 @@
                         {% if rel.image %}
                             <img src="{{ rel.image.url }}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
                         {% else %}
-                            <img src="{% static 'imgs/2148882592.jpg' %}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
+                            <img src="{% static 'imgs/2148882592.avif' %}" alt="{{ rel.title }}" width="400" height="225" loading="lazy">
                         {% endif %}
                         <span class="related-ev-date-badge">{{ rel.event_date|date:"d M Y" }}</span>
                     </div>

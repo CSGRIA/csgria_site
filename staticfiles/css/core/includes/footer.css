@@ -1,5 +1,5 @@
 footer {
-    background: var(--blue-500);
+    background: var(--blue-800); 
     color: var(--white);
     position: relative;
     overflow: hidden;
@@ -65,11 +65,11 @@ footer::after {
 .footer-brand-desc {
     font-size: 13px;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.60);
+    color: rgba(255, 255, 255, 0.85); 
     max-width: 340px;
 }
 
-.footer-col h5 {
+.footer-col-title {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.8px;
@@ -87,7 +87,7 @@ footer::after {
 
 .footer-col ul li a {
     font-size: 13.5px;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.90); 
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -126,24 +126,24 @@ footer::after {
 
 .contact-label {
     display: block;
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.80);
     margin-bottom: 2px;
 }
 
 .contact-value {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.80);
+    color: var(--white); 
 }
 
 .footer-socials-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding: 20px 0;
     margin-bottom: 24px;
 }
@@ -160,7 +160,7 @@ footer::after {
     align-items: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.20);
     border-radius: 10px;
     color: var(--white);
     text-decoration: none;
@@ -168,8 +168,8 @@ footer::after {
 }
 
 .footer-social-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.40);
     transform: translateY(-3px);
 }
 
@@ -188,7 +188,7 @@ footer::after {
 
 .footer-copyright {
     font-size: 12.5px;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.80); 
 }
 
 .footer-copyright strong {
@@ -205,7 +205,7 @@ footer::after {
 
 .footer-legal a {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.80); 
     text-decoration: none;
     transition: color 0.18s;
 }

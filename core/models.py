@@ -17,13 +17,14 @@ class Contact(models.Model):
     support_tel              = models.CharField(max_length=100, blank=True)
     support_email            = models.CharField(max_length=100, blank=True)
     support_group_whatsapp   = models.CharField(max_length=100, blank=True)
+    support_chaine_whatsapp  = models.CharField(max_length=250, blank=True)
     support_adresse          = models.CharField(max_length=100, blank=True)
 
     # ── Réseaux sociaux ───────────────────────────────────
-    reseau_linkedin  = models.CharField(max_length=100, blank=True)
-    reseau_github    = models.CharField(max_length=100, blank=True)
-    reseau_facebook  = models.CharField(max_length=100, blank=True)
-    reseau_youtube   = models.CharField(max_length=100, blank=True)
+    reseau_linkedin  = models.CharField(max_length=200, blank=True)
+    reseau_github    = models.CharField(max_length=200, blank=True)
+    reseau_facebook  = models.CharField(max_length=200, blank=True)
+    reseau_youtube   = models.CharField(max_length=200, blank=True)
 
     # ── Média ─────────────────────────────────────────────
     image_hero_contact = models.ImageField(
@@ -82,9 +83,17 @@ class Contact(models.Model):
         return f"https://wa.me/{number}"
 
     @property
+    def whatsapp_url_chaine(self):
+        if not self.support_chaine_whatsapp:
+            return self.whatsapp_url
+        else:
+            return self.support_chaine_whatsapp.strip()
+
+
+    @property
     def mailto_url(self):
         return f"mailto:{self.support_email}" if self.support_email else ''
-    
+
 class Apropos(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     hero_politique = models.ImageField(upload_to='apropos/', blank=True, null=True)
@@ -116,7 +125,7 @@ class Evenement(models.Model):
     apropos = models.ForeignKey(
         Apropos,
         on_delete=models.CASCADE,
-        related_name='evenements',  
+        related_name='evenements',
         null=True, blank=True
     )
     annee       = models.CharField(max_length=10)
@@ -136,18 +145,28 @@ class Evenement(models.Model):
 
 class Profile(models.Model):
     ROLE_CHOICES = [
-        ('president',      'Président'),
-        ('vice_president', 'Vice-Président'),
-        ('secretaire',     'Secrétaire'),
-        ('membre',         'Membre'),
-        ('autre',          'Autre'),
+    ('presidente',           'Présidente Fondatrice'),
+    ('directeur',            'Directeur Programmes'),
+    ('resp_rd',              'Resp. Pôle R&D'),
+    ('assistant_resp_rd',    'Assistant Resp. Pôle R&D'),
+    ('resp_formation',       'Resp. Pôle Formation'),
+    ('assistant_resp_formation', 'Assistant Resp. Pôle Formation'),
+    ('resp_com',             'Resp. Pôle Communication'),
+    ('assistant_resp_com',   'Assistant Resp. Pôle Communication'),
+    ('resp_technique',       'Resp. Pôle Technique'),
+    ('assistant_resp_technique', 'Assistant Resp. Pôle Technique'),
+    ('secretaire',           'Secrétaire Générale'),
+    ('resp_finance',         'Resp. Finance'),
+    ('resp_conformite',      'Resp. Conformité'),
+    ('membre',               'Membre'),
+    ('autre',                'Autre'),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     apropos       = models.ForeignKey(
         Apropos,
         on_delete=models.CASCADE,
-        related_name='profiles',    
+        related_name='profiles',
         null=True, blank=True
     )
     photo_profile = models.ImageField(upload_to='profiles/', blank=True, null=True)
@@ -289,7 +308,7 @@ class Mission(models.Model):
     @property
     def has_visuel(self):
         return bool(self.visuel)
-    
+
 
 class AxeRecherche(models.Model):
     label = models.CharField("Libellé de l'axe", max_length=120)
@@ -347,7 +366,7 @@ class Pole(models.Model):
         related_name="poles"
     )
     membres = models.ManyToManyField(
-        Profile,          
+        Profile,
         blank=True,
         verbose_name="Membres du pôle",
         related_name="poles"

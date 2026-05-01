@@ -1,8 +1,0 @@
-[2026-04-22 01:51:04,773] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
-[2026-04-22 01:51:04,775] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4637
-[2026-04-22 01:51:19,959] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
-[2026-04-22 01:51:19,962] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4637
-[2026-04-22 01:51:46,236] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
-[2026-04-22 01:51:46,240] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4637
-[2026-04-23 10:54:50,622] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
-[2026-04-23 10:54:50,623] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4900

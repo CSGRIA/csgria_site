@@ -61,14 +61,14 @@
 
 <div class="chatbot-launcher">
     <div class="chatbot-bubble" id="chatbotToggle">
-        <div class="chatbot-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.png' %}" alt="bot" srcset=""></div>
+        <div class="chatbot-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.avif' %}" alt="bot" srcset=""></div>
         CsgrAI
     </div>
 </div>
 
 <div class="chatbot-window" id="chatbotWindow">
     <div class="chatbot-header">
-        <div class="chatbot-header-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.png' %}" alt="bot" srcset=""></div>
+        <div class="chatbot-header-avatar"><img height="100%" style="object-fit: contain;" src="{% static 'imgs/bot.avif' %}" alt="bot" srcset=""></div>
         <div class="chatbot-header-info">
             <strong>CsgrAI</strong>
             <span>Assistant CSGR-IA · En ligne</span>
@@ -83,13 +83,13 @@
         <div class="chat-msg bot">Bonjour 👋 Je suis CsgrAI, votre assistant virtuel. Comment puis-je vous aider aujourd'hui ?</div>
     </div>
     <div class="chatbot-quick-replies" id="quickReplies">
-        <button class="quick-reply" data-msg="Devenir membre">Devenir membre</button>
-        <button class="quick-reply" data-msg="Nos publications">Publications</button>
-        <button class="quick-reply" data-msg="Nous contacter">Nous contacter</button>
+        <button aria-label='membres' class="quick-reply" data-msg="Devenir membre">Devenir membre</button>
+        <button aria-label='pub' class="quick-reply" data-msg="Nos publications">Publications</button>
+        <button aria-label='contact' class="quick-reply" data-msg="Nous contacter">Nous contacter</button>
     </div>
     <div class="chatbot-input-row">
         <input type="text" class="chatbot-input" id="chatInput" placeholder="Écrivez un message…">
-        <button class="chatbot-send" id="chatSend">
+        <button aria-label='send' class="chatbot-send" id="chatSend">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -106,5 +106,8 @@
 </a>
 {% endif %}
 
+<script>
+    window.WHATSAPP_URL = "{{ contact.support_chaine_whatsapp }}";
+</script>
 <script src="{% static 'js/core/contact.js' %}"></script>
 {% endblock %}
